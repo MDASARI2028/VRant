@@ -12,37 +12,67 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 
-// Colors that match the iOS bitchat theme
+/**
+ * VRant Dark Color Scheme — VIT-inspired maroon/gold on near-black
+ * Default and recommended theme for the campus chat experience
+ */
 private val DarkColorScheme = darkColorScheme(
-    primary = Color(0xFF39FF14),        // Bright green (terminal-like)
-    onPrimary = Color.Black,
-    secondary = Color(0xFF2ECB10),      // Darker green
-    onSecondary = Color.Black,
-    background = Color.Black,
-    onBackground = Color(0xFF39FF14),   // Green on black
-    surface = Color(0xFF111111),        // Very dark gray
-    onSurface = Color(0xFF39FF14),      // Green text
-    error = Color(0xFFFF5555),          // Red for errors
-    onError = Color.Black
+    primary = VRantColors.Maroon500,            // Primary action color — vibrant crimson
+    onPrimary = VRantColors.TextOnMaroon,
+    primaryContainer = VRantColors.Maroon700,
+    onPrimaryContainer = VRantColors.Maroon100,
+    secondary = VRantColors.Gold500,            // Gold accent
+    onSecondary = VRantColors.TextOnGold,
+    secondaryContainer = VRantColors.Gold700,
+    onSecondaryContainer = VRantColors.Gold100,
+    tertiary = VRantColors.Info,
+    onTertiary = VRantColors.Black,
+    background = VRantColors.DarkBase,          // Near-black background
+    onBackground = VRantColors.TextPrimary,
+    surface = VRantColors.DarkSurface,          // Elevated card surfaces
+    onSurface = VRantColors.TextPrimary,
+    surfaceVariant = VRantColors.DarkElevated,
+    onSurfaceVariant = VRantColors.TextSecondary,
+    outline = VRantColors.DarkBorder,
+    outlineVariant = VRantColors.DarkMuted,
+    error = VRantColors.Error,
+    onError = VRantColors.TextOnMaroon
 )
 
+/**
+ * VRant Light Color Scheme — maroon/gold on warm white
+ */
 private val LightColorScheme = lightColorScheme(
-    primary = Color(0xFF008000),        // Dark green
-    onPrimary = Color.White,
-    secondary = Color(0xFF006600),      // Even darker green
-    onSecondary = Color.White,
-    background = Color.White,
-    onBackground = Color(0xFF008000),   // Dark green on white
-    surface = Color(0xFFF8F8F8),        // Very light gray
-    onSurface = Color(0xFF008000),      // Dark green text
-    error = Color(0xFFCC0000),          // Dark red for errors
-    onError = Color.White
+    primary = VRantColors.Maroon700,
+    onPrimary = VRantColors.TextOnMaroon,
+    primaryContainer = VRantColors.Maroon100,
+    onPrimaryContainer = VRantColors.Maroon900,
+    secondary = VRantColors.Gold700,
+    onSecondary = VRantColors.TextOnMaroon,
+    secondaryContainer = VRantColors.Gold100,
+    onSecondaryContainer = VRantColors.Gold900,
+    tertiary = VRantColors.Info,
+    onTertiary = VRantColors.LightSurface,
+    background = VRantColors.LightBackground,
+    onBackground = VRantColors.TextDarkPrimary,
+    surface = VRantColors.LightSurface,
+    onSurface = VRantColors.TextDarkPrimary,
+    surfaceVariant = VRantColors.LightElevated,
+    onSurfaceVariant = VRantColors.TextDarkSecondary,
+    outline = VRantColors.LightBorder,
+    outlineVariant = VRantColors.LightMuted,
+    error = VRantColors.Error,
+    onError = VRantColors.TextOnMaroon
 )
 
+/**
+ * VRant Theme — wraps Material 3 with VIT campus branding.
+ * Kept as `BitchatTheme` function name to avoid touching every call-site.
+ * Internal naming references VRant; public API preserved for compatibility.
+ */
 @Composable
 fun BitchatTheme(
     darkTheme: Boolean? = null,
@@ -85,7 +115,7 @@ fun BitchatTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = VRantTypography,
         content = content
     )
 }

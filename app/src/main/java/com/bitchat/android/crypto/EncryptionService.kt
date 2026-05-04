@@ -327,6 +327,39 @@ open class EncryptionService(private val context: Context) {
         noiseService.removeChannelPassword(channel)
     }
     
+    // MARK: - Zone Encryption
+    
+    /**
+     * Set the encryption key for a specific campus zone.
+     * Uses a deterministic secret based on the zone ID to isolate zone traffic.
+     */
+    fun setZoneEncryptionKey(zoneId: String) {
+        // In a real production app, this could be a rotating secret fetched from the backend.
+        // For now, we use a static pre-shared prefix + zoneId to derive the key,
+        // ensuring only VRant app users can decode this zone's messages.
+        val zoneSecret = "VRANT_ZONE_SECRET_$zoneId"
+        noiseService.setChannelPassword(zoneSecret, zoneId)
+        Log.d(TAG, "🔐 Set encryption key for campus zone: $zoneId")
+    }
+
+    /**
+     * Encrypt a message for a campus zone
+     */
+    fun encryptZoneMessage(message: String, zoneId: String): ByteArray? {
+        // Ensure the key is set before encrypting
+        setZoneEncryptionKey(zoneId)
+        return encryptChannelMessage(message, zoneId)
+    }
+
+    /**
+     * Decrypt a message from a campus zone
+     */
+    fun decryptZoneMessage(encryptedData: ByteArray, zoneId: String): String? {
+        // Ensure the key is set before decrypting
+        setZoneEncryptionKey(zoneId)
+        return decryptChannelMessage(encryptedData, zoneId)
+    }
+    
     // MARK: - Session Management
     
     /**

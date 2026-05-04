@@ -304,7 +304,7 @@ class MainActivity : OrientationAwareActivity() {
 
                 // Add the callback - this will be automatically removed when the activity is destroyed
                 onBackPressedDispatcher.addCallback(this, backCallback)
-                ChatScreen(viewModel = chatViewModel)
+                com.bitchat.android.ui.screens.VRantMainScreen(chatViewModel = chatViewModel)
             }
             
             OnboardingState.ERROR -> {
