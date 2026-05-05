@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/logo.png" alt="VRant Logo" width="480">
+</p>
+
 # VRant
 
 **VRant** is a secure, hybrid peer-to-peer and online messaging application built specifically for the VIT campus community. 
